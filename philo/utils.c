@@ -1,0 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/28 00:27:27 by asodor            #+#    #+#             */
+/*   Updated: 2024/11/28 05:04:24 by asodor           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philo.h"
+
+int	ft_strlen(const char *s)
+{
+    int	i;
+
+    i = 0;
+    while (s[i])
+        i++;
+    return (i);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+    write(fd, s, ft_strlen(s));
+    write(fd, "\n", 1);
+}
+
+long    ft_atol(const char *s, bool *error)
+{
+    long    res;
+    int i;
+    
+    i = 0;
+    res = 0;
+    while (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13))
+        i++;
+    while (s[i] == '+')
+        i++;
+    if (s[i] == '-' || !s[i])
+        return (*error = 1, res);
+    while (s[i] >= '0' && s[i] <= '9')
+    {
+        res = res * 10 + (s[i] - '0');
+        if (res > LONG_MAX)
+            return (*error = 1, res);
+        i++;
+    }
+    if (s[i] != '\0')
+        return (*error = 1, res);        
+    return (res);
+}
+

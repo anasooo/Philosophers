@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 06:11:49 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/28 08:55:18 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/29 05:07:05 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,7 @@ void    ft_initialization(t_process *process, t_fork **forks, t_philo **philos)
     }
     p = init_process(process, forks, philos);
     if (!p)
-    {
-        ft_putendl_fd("Process initialization failed!\n", STDERR_FILENO);
-        return ;
-    }
+        return (ft_putendl_fd("Process initialization failed!\n", STDERR_FILENO));
 }
+
 

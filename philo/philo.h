@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:47:33 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/28 00:14:36 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/29 09:38:01 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	int				id;
-	bool			alive;
-	unsigned int			last_meal;
 	t_process		*process;
+	bool			alive;
 	t_fork			*l_fork;
 	t_fork			*r_fork;
 	pthread_t		thread;
@@ -62,8 +61,8 @@ typedef struct s_philo
 typedef struct s_process
 {
 	unsigned int			n_philos;
-	t_time					time;
-	unsigned int			n_meals;
+	t_time					*time;
+	int			n_meals;
 	bool			ready;
 	bool			philo_died;
 	bool			err;
@@ -76,9 +75,19 @@ typedef struct s_process
 }t_process;
 
 
-/*==================== init ===================================*/
-
-
+/*==================== utils ===================================*/
+int		ft_strlen(const char *s);
+void	ft_putendl_fd(char *s, int fd);
+unsigned long	ft_atoul(const char *s, bool *error);
+/*==================== free ====================================*/
+void	ft_free_forks(t_fork **forks, long n_philos);
+void	ft_free_philos(t_philo **philos, long n_philos);
+/*==================== parsing =================================*/
+t_process	*ft_parse_input(int ac, char **av);
+/*==================== initialization ==========================*/
+t_fork		**init_forks(int n_philos);
+t_philo		**init_philos(t_process *process, t_fork **forks);
+void		ft_initialization(t_process *process, t_fork **forks, t_philo **philos);
 
 
 #endif

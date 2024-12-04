@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:47:33 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/29 09:38:01 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/03 13:54:29 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,13 @@ t_process	*ft_parse_input(int ac, char **av);
 t_fork		**init_forks(int n_philos);
 t_philo		**init_philos(t_process *process, t_fork **forks);
 void		ft_initialization(t_process *process, t_fork **forks, t_philo **philos);
-
+/*==================== threads =================================*/
+void	ft_threads(t_process *process);
+/*==================== routine =================================*/
+void	*ft_routine(void *philo);
+/*==================== time ====================================*/
+unsigned long	ft_get_time(void);
+/*==================== setters =================================*/
+void	set_ready(t_process *process);
 
 #endif

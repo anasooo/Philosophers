@@ -6,26 +6,11 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 02:08:23 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/29 06:22:15 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/03 13:58:04 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static void *ft_routine(void *arg)
-{
-    t_philo *philo;
-    
-    philo = (t_philo *)arg;
-    while (philo->alive)
-    {
-        ft_take_forks(philo);
-        ft_eat(philo);
-        ft_sleep(philo);
-        ft_think(philo);
-    }
-    return (NULL);
-}
 
 static bool ft_create_threads(t_process *process)
 {
@@ -56,8 +41,7 @@ void ft_threads(t_process *process)
 {
     if (!ft_create_threads(process))
         return ;
-    ft_start_time(process);
-    
-    
+    ft_get_time();
+    set_ready(process);
     return (ft_join_threads(process));
 }

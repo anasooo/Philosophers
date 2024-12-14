@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:59:56 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/03 17:25:51 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/14 23:56:44 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static bool	simulation(t_process *process, t_philo *philo)
             return (false);
         if (!ft_eat(process, philo))
             return (false);
+        if (!ft_put_forks(process, philo))
+            return (false);
     }
     
 }
@@ -79,6 +81,7 @@ void	*ft_routine(void *data)
         return (NULL);
     if (!simulation(process, philo))
         return (NULL);
+    
     
     return (NULL);
 }

@@ -6,11 +6,12 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:59:56 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/14 23:56:44 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/15 03:31:42 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
 
 static bool	all_is_ready(t_process *process)
 {
@@ -25,28 +26,18 @@ static bool	all_is_ready(t_process *process)
     return (true);
 }
 
-bool	take_r_fork(t_philo *philo, t_process *process)
-{   
-    if (process->err || process->philo_died)
-		return (false);
-	ft_print(philo, 'f');
-	return (true);
-}
-
-bool	take_l_fork(t_philo *philo, t_process *process)
+bool ft_eat(t_process *process, t_philo *philo)
 {
     if (process->err || process->philo_died)
         return (false);
-    ft_print(philo, 'f');
-    return (true);
-}
-
-static bool ft_take_forks(t_process *process, t_philo *philo)
-{
-    if (philo->id % 2 == 0)
-        return (take_r_fork(philo, process) && take_l_fork(philo, process));
+    set_philo_last_eat(philo);
+    //need to check for this philo died ?
+    ft_print_eating(philo);
+    if (process->time->to_eat > process->time->to_die)
+        ft_usleep(process->time->to_die);
     else
-        return (take_l_fork(philo, process) && take_r_fork(philo, process));
+        ft_usleep(process->time->to_eat);
+    return (true);
 }
 
 static bool	simulation(t_process *process, t_philo *philo)

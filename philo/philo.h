@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:47:33 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/15 03:15:15 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/17 11:18:39 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_time
 typedef struct s_fork
 {
 	int				id;
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	mutex_fork;
 }t_fork;
 
 typedef struct s_philo
@@ -55,23 +55,23 @@ typedef struct s_philo
 	t_fork			*r_fork;
 	pthread_t		thread;
 	int	last_eat;
-	pthread_mutex_t	mutex;
+	int finished;
+	pthread_mutex_t	mutex_philo;
 }t_philo;
 
 
 typedef struct s_process
 {
-	unsigned int	n_philos;
+	unsigned int	number_of_philos;
 	t_time			*time;
-	int				n_meals;
+	int				number_of_meals;
 	bool			ready;
 	bool			philo_died;
-	bool			err;
 	unsigned int	finished;
 	t_philo			**philos;
 	t_fork			**forks;
-	pthread_t		monitor;
-	pthread_mutex_t	mutex;
+	//pthread_t		monitor;
+	pthread_mutex_t	mutex_process;
 }t_process;
 
 
@@ -100,5 +100,9 @@ int		set_philo_last_eat(t_philo *philo);
 /*==================== print ===================================*/
 void	ft_print_fork(t_philo *philo);
 void	ft_print_eating(t_philo *philo);
+void	ft_print_sleeping(t_philo *philo);
+void	ft_print_thinking(t_philo *philo);
+//void	ft_print_dead(t_philo *philo);
+
 
 #endif

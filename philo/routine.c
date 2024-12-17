@@ -6,57 +6,67 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:59:56 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/15 03:31:42 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/17 11:03:38 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-static bool	all_is_ready(t_process *process)
+static void	all_is_ready(t_process *process)
 {
     int is_ready;
     
     is_ready = 0;
     while (!is_ready)
     {
-        // mutex lock
         is_ready = process->ready;
     }
-    return (true);
 }
 
-bool ft_eat(t_process *process, t_philo *philo)
+void ft_eat(t_process *process, t_philo *philo)
 {
-    if (process->err || process->philo_died)
-        return (false);
+    if (process->philo_died)
+        return (NULL);
     set_philo_last_eat(philo);
-    //need to check for this philo died ?
     ft_print_eating(philo);
     if (process->time->to_eat > process->time->to_die)
         ft_usleep(process->time->to_die);
     else
         ft_usleep(process->time->to_eat);
-    return (true);
+}
+void ft_sleep(t_process *process, t_philo *philo)
+{
+    if (process->philo_died)
+        return (NULL);
+    ft_print_sleeping(philo);
+    if (process->time->to_sleep > process->time->to_die)
+        ft_usleep(process->time->to_die);
+    else
+        ft_usleep(process->time->to_sleep);
+}
+void ft_think(t_process *process, t_philo *philo)
+{
+    if (process->philo_died)
+        return (NULL);
+    ft_print_thinking(philo);
+    ft_usleep(1);
 }
 
-static bool	simulation(t_process *process, t_philo *philo)
+static void	simulation(t_process *process, t_philo *philo)
 {
     long m;
     
     if (philo->id % 2)
         usleep(10);
     m = 0;
-    while (m < process->n_meals || process->n_meals == -1)
+    while (m < process->number_of_meals || process->number_of_meals == -1)
     {
-        if (!ft_take_forks(process, philo))
-            return (false);
-        if (!ft_eat(process, philo))
-            return (false);
-        if (!ft_put_forks(process, philo))
-            return (false);
+        ft_take_forks(process, philo);
+        ft_eat(process, philo);
+        m++;
+        ft_sleep(process, philo);
+        ft_think(process, philo);
     }
-    
 }
 
 void	*ft_routine(void *data)
@@ -67,12 +77,9 @@ void	*ft_routine(void *data)
     philo = (t_philo *)data;
     process = philo->process;
     
-    //wait for all threads to be ready
-    if (!all_is_ready(process))
-        return (NULL);
-    if (!simulation(process, philo))
-        return (NULL);
-    
-    
+    all_is_ready(process);
+    simulation(process, philo);
+    ft_set_philo_finished(philo);
+    ft_update_process_state(process);   
     return (NULL);
 }

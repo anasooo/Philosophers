@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 02:16:26 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/15 03:11:17 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/17 11:20:38 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,13 @@ void    ft_print_fork(t_philo *philo)
 void    ft_print_eating(t_philo *philo)
 {
     printf("%u %d %s", ft_get_time(), philo->id, EAT);
+}
+void   ft_print_sleeping(t_philo *philo)
+{
+    printf("%u %d %s", ft_get_time(), philo->id, SLEEP);
+}
+
+void    ft_print_thinking(t_philo *philo)
+{
+    printf("%u %d %s", ft_get_time(), philo->id, THINK);
 }

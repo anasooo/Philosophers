@@ -6,6 +6,7 @@ SRC = main.c \
 	  initialization.c \
 	  threads.c\
 	  time.c\
+	  print.c\
 
 OBJ = $(SRC:.c=.o)
 

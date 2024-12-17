@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 00:20:27 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/29 09:37:41 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/17 11:19:06 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static t_process *check_n_meals(int ac, t_process *process, char **av, bool *err
 {
     if (ac == 5)
     {
-        process->n_meals = ft_atoul(av[4], error);
+        process->number_of_meals = ft_atoul(av[4], error);
         return (free(process), NULL);
     }    
     else
-        process->n_meals = -1;
+        process->number_of_meals = -1;
     return (process);
 }
 t_process	*ft_parse_input(int ac, char **av)
@@ -33,7 +33,7 @@ t_process	*ft_parse_input(int ac, char **av)
     if (!process)
         return (ft_putendl_fd("Allocation failed!\n", STDERR_FILENO), NULL);
     
-    process->n_philos = ft_atoui(av[0], &error);
+    process->number_of_philos = ft_atoui(av[0], &error);
     if(error)
         return (free(process), NULL);
     process->time->to_die = ft_atoul(av[1], &error);

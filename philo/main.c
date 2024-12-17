@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 22:22:24 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/29 01:44:24 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/17 09:46:28 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	main(int ac, char **av)
 		return (ft_putendl_fd(ERROR, STDERR_FILENO), 1);
 	ft_initialization(process, forks, philos);
 	ft_threads(process);
-	ft_free_forks(forks, process->n_philos);
-	ft_free_philos(philos, process->n_philos);
+	ft_free_forks(forks, process->number_of_philos);
+	ft_free_philos(philos, process->number_of_philos);
 	free(process);	
 	return (0);
 }

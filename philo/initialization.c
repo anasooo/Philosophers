@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 06:11:49 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/17 11:15:25 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/18 11:24:27 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static bool init_process(t_process *process, t_fork **forks, t_philo **philos)
     process->finished = 0;
     process->forks = forks;
     process->philos = philos;
-    if (pthread_mutex_init(&process->mutex_process, NULL))
+    if (pthread_mutex_init(&process->mutex, NULL))
         return (free(process),false);
     //if (pthread_mutex_init(&process->print_mutex, NULL))
       //  return (free(process),false);

@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:47:33 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/17 11:18:39 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/18 11:20:17 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_time
 typedef struct s_fork
 {
 	int				id;
-	pthread_mutex_t	mutex_fork;
+	pthread_mutex_t	mutex;
 }t_fork;
 
 typedef struct s_philo
@@ -56,7 +56,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	int	last_eat;
 	int finished;
-	pthread_mutex_t	mutex_philo;
+	pthread_mutex_t	mutex;
 }t_philo;
 
 
@@ -71,7 +71,7 @@ typedef struct s_process
 	t_philo			**philos;
 	t_fork			**forks;
 	//pthread_t		monitor;
-	pthread_mutex_t	mutex_process;
+	pthread_mutex_t	mutex;
 }t_process;
 
 

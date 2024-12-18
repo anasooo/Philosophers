@@ -6,20 +6,22 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:59:56 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/18 20:05:00 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:21:06 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	all_is_ready(t_process *process)
+void	all_is_ready(t_process *process)
 {
     int is_ready;
     
     is_ready = 0;
     while (!is_ready)
     {
+        pthread_mutex_lock(&process->mutex);
         is_ready = process->ready;
+        pthread_mutex_unlock(&process->mutex);
     }
 }
 
@@ -36,7 +38,7 @@ void ft_eat(t_process *process, t_philo *philo)
 }
 void ft_sleep(t_process *process, t_philo *philo)
 {
-    if (process->philo_died)
+    if (ft_check_philo_died(process) != 0)
         return (NULL);
     ft_print_sleeping(philo);
     if (process->time->to_sleep > process->time->to_die)
@@ -46,13 +48,13 @@ void ft_sleep(t_process *process, t_philo *philo)
 }
 void ft_think(t_process *process, t_philo *philo)
 {
-    if (process->philo_died)
+    if (ft_check_philo_died(process) != 0)
         return (NULL);
     ft_print_thinking(philo);
     ft_usleep(1);
 }
 
-static void	simulation(t_process *process, t_philo *philo)
+void	simulation(t_process *process, t_philo *philo)
 {
     long m;
     
@@ -63,6 +65,7 @@ static void	simulation(t_process *process, t_philo *philo)
     {
         ft_take_forks(process, philo);
         ft_eat(process, philo);
+        ft_put_forks(process, philo);
         m++;
         ft_sleep(process, philo);
         ft_think(process, philo);

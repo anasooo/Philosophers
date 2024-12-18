@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 02:32:13 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/18 11:39:55 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/18 20:00:26 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	take_r_fork(t_philo *philo, t_process *process)
     if (ft_check_philo_died(process) != 0)
         return (NULL);
     pthread_mutex_lock(&philo->r_fork->mutex);
-    if (ft_check_philo_died(process))
+    if (ft_check_philo_died(process) != 0)
     {
         pthread_mutex_unlock(&philo->r_fork->mutex);
-        if (philo->id % 2 == 0)
+        if (philo->id % 2 != 0)
             pthread_mutex_unlock(&philo->l_fork->mutex);
         return (NULL);
     }
@@ -38,8 +38,16 @@ void	take_r_fork(t_philo *philo, t_process *process)
 
 void	take_l_fork(t_philo *philo, t_process *process)
 {
-    if (process->philo_died)
+    if (ft_check_philo_died(process) != 0)
         return (NULL);
+    pthread_mutex_lock(&philo->l_fork->mutex);
+    if(ft_check_philo_died(process) != 0)
+    {
+        pthread_mutex_unlock(&philo->l_fork->mutex);
+        if (philo->id % 2 == 0)
+            pthread_mutex_unlock(&philo->l_fork->mutex);
+        return (NULL);
+    }
     ft_print_fork(philo);
 }
 

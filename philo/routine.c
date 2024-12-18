@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:59:56 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/17 11:03:38 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/18 20:05:00 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	all_is_ready(t_process *process)
 
 void ft_eat(t_process *process, t_philo *philo)
 {
-    if (process->philo_died)
+    if (ft_check_philo_died(process, philo) != 0)
         return (NULL);
     set_philo_last_eat(philo);
     ft_print_eating(philo);

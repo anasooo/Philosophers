@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 02:32:13 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/18 20:00:26 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:01:14 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,12 @@ void  ft_take_forks(t_process *process, t_philo *philo)
         take_l_fork(philo, process);
         take_r_fork(philo, process);
     }
+}
+
+void ft_put_forks(t_process *process, t_philo *philo)
+{
+    pthread_mutex_unlock(&philo->l_fork->mutex);
+    pthread_mutex_unlock(&philo->r_fork->mutex);
+    if (ft_check_philo_died(process) != 0)
+        return (NULL);
 }

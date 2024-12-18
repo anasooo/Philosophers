@@ -6,16 +6,20 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 02:32:13 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/17 11:08:57 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/18 11:14:00 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 void	take_r_fork(t_philo *philo, t_process *process)
-{   
+{
+    pthread_mutex_lock(&process->mutex);
     if (process->philo_died)
-		return (NULL);
+    {
+        pthread_mutex_unlock(&process->mutex);
+        return (NULL);        
+    }
 	ft_print_fork(philo);
 }
 

@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 02:08:23 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/19 13:35:13 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/19 16:41:27 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int ft_create_threads(t_process *process)
             return (ft_putendl_fd("Error: Failed to create thread", STDERR_FILENO), 0);
         i++;
     }
+    if (pthread_create(&process->monitor, NULL, ft_monitor, (void *)process))
+        return (ft_putendl_fd("Error: Failed to create thread", STDERR_FILENO), 0);
     return (1);
 }
 int ft_join_threads(t_process *process)
@@ -36,6 +38,8 @@ int ft_join_threads(t_process *process)
             return (ft_putendl_fd("Error: Failed to join thread", STDERR_FILENO), 0);
         i++;
     }
+    if (pthread_join(process->monitor, NULL))
+        return (ft_putendl_fd("Error: Failed to join thread", STDERR_FILENO), 0);
     return (1);
 }
 int ft_threads(t_process *process)

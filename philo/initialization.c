@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 06:11:49 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/19 12:45:41 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/19 19:35:12 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void ft_set_philo(t_process *process, t_philo *philo, t_fork **forks, lon
 {
     philo->id = i + 1;
     philo->process = process;
-    philo->alive = true;
     philo->l_fork = forks[i];
     philo->r_fork = forks[(i + 1) % process->number_of_philos];
 }

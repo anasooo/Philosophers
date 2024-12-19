@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 06:11:49 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/18 11:24:27 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/19 12:45:41 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void ft_set_philo(t_process *process, t_philo *philo, t_fork **forks, lon
     philo->r_fork = forks[(i + 1) % process->number_of_philos];
 }
 
-static t_philo **init_philos(t_process *process, t_fork **forks)
+t_philo **init_philos(t_process *process, t_fork **forks)
 {
     t_philo **philos;
     long    i;
@@ -36,14 +36,14 @@ static t_philo **init_philos(t_process *process, t_fork **forks)
         if (!philos[i])
             return (ft_free_philos(philos, i), NULL);
         ft_set_philo(process, philos[i], forks, i);
-        if (pthread_mutex_init(&philos[i]->mutex_philo, NULL))
+        if (pthread_mutex_init(&philos[i]->mutex, NULL))
             return (ft_free_philos(philos, i), NULL);
         i++;
     }
     return (philos);
 }
 
-static t_fork **init_forks(int n_philos)
+t_fork **init_forks(int n_philos)
 {
     t_fork  **forks;
     long     i;
@@ -58,27 +58,27 @@ static t_fork **init_forks(int n_philos)
         if (!forks[i])
             return (ft_free_forks(forks, i), NULL);
         forks[i]->id = i;
-        if (pthread_mutex_init(&forks[i]->mutex_fork, NULL))
+        if (pthread_mutex_init(&forks[i]->mutex, NULL))
             return (ft_free_forks(forks, i), NULL);
         i++;
     }
     return (forks);
 }
 
-static bool init_process(t_process *process, t_fork **forks, t_philo **philos)
+int init_process(t_process *process, t_fork **forks, t_philo **philos)
 {   process->ready = false;
     process->philo_died = false;
     process->finished = 0;
     process->forks = forks;
     process->philos = philos;
     if (pthread_mutex_init(&process->mutex, NULL))
-        return (free(process),false);
-    //if (pthread_mutex_init(&process->print_mutex, NULL))
-      //  return (free(process),false);
-    return (true);
+        return (free(process), 0);
+    // if (pthread_mutex_init(&process->print_mutex, NULL))
+    //    return (free(process),false);
+    return (1);
 }
 
-void    ft_initialization(t_process *process, t_fork **forks, t_philo **philos)
+int    ft_initialization(t_process *process, t_fork **forks, t_philo **philos)
 {
     bool p;
     
@@ -86,17 +86,18 @@ void    ft_initialization(t_process *process, t_fork **forks, t_philo **philos)
     if (!forks)
     {
         ft_putendl_fd("Forks initialization failed!\n", STDERR_FILENO);
-        return (free(process));
+        return (free(process), 0);
     }
     philos = init_philos(process, forks);
     if (!philos)
     {
         ft_putendl_fd("Philos initialization failed!\n", STDERR_FILENO);
-        return (free(process));
+        return (free(process), 0);
     }
     p = init_process(process, forks, philos);
     if (!p)
-        return (ft_putendl_fd("Process initialization failed!\n", STDERR_FILENO));
+        return (ft_putendl_fd("Process initialization failed!\n", STDERR_FILENO), 0);
+    return (1);
 }
 
 

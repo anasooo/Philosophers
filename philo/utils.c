@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 00:27:27 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/29 09:39:03 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/19 15:05:48 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_putendl_fd(char *s, int fd)
     write(fd, "\n", 1);
 }
 
-unsigned long    ft_atoul(const char *s, bool *error)
+unsigned int    ft_atoui(const char *s, bool *error)
 {
     unsigned int    res;
     int i;
@@ -44,12 +44,12 @@ unsigned long    ft_atoul(const char *s, bool *error)
     while (s[i] >= '0' && s[i] <= '9')
     {
         res = res * 10 + (s[i] - '0');
-        if (res > ULONG_MAX)
+        if (res > UINT_MAX)
             return (*error = 1, res);
         i++;
     }
     if (s[i] != '\0')
-        return (*error = 1, res);        
+        return (*error = 1, res);    
     return (res);
 }
 

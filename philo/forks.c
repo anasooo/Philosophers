@@ -6,20 +6,12 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 02:32:13 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/19 13:13:39 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/19 20:30:02 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int ft_check_philo_died(t_process *process)
-{
-    int died;
-    pthread_mutex_lock(&process->mutex);
-    died = process->philo_died;
-    pthread_mutex_unlock(&process->mutex);
-    return (died);
-}
 
 int	take_r_fork(t_philo *philo, t_process *process)
 {

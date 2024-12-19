@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:47:33 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/19 15:15:09 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/19 19:42:04 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_philo
 {
 	int				id;
 	t_process		*process;
-	bool			alive;
 	t_fork			*l_fork;
 	t_fork			*r_fork;
 	pthread_t		thread;
@@ -62,7 +61,7 @@ typedef struct s_philo
 
 typedef struct s_process
 {
-	unsigned int	number_of_philos;
+	int	number_of_philos;
 	t_time			time;
 	int				number_of_meals;
 	bool			ready;
@@ -70,7 +69,7 @@ typedef struct s_process
 	unsigned int	finished;
 	t_philo			**philos;
 	t_fork			**forks;
-	//pthread_t		monitor;
+	pthread_t		monitor;
 	pthread_mutex_t	mutex;
 }t_process;
 
@@ -97,20 +96,26 @@ unsigned int	ft_get_time(void);
 int	ft_usleep(unsigned long time);
 /*==================== setters =================================*/
 void	set_ready(t_process *process);
+void	all_is_ready(t_process *process);
 void		set_philo_last_eat(t_philo *philo);
 void ft_set_philo_finished(t_philo *philo);
-void ft_update_process_state(t_process *process);
+void ft_set_count(t_process *process);
+void ft_set_philo_died(t_process *process);
 /*==================== check ===================================*/
 int ft_check_philo_died(t_process *process);
+int ft_check_philo_finished(t_philo *philo);
+int ft_check_process_finished(t_process *process);
 /*==================== print ===================================*/
 void	ft_print_fork(t_philo *philo);
 void	ft_print_eating(t_philo *philo);
 void	ft_print_sleeping(t_philo *philo);
 void	ft_print_thinking(t_philo *philo);
-
+void	ft_print_death(t_philo *philo);
 //*==================== forks ==============================*/
 int ft_take_forks(t_process *process, t_philo *philo);
 int ft_put_forks(t_process *process, t_philo *philo);
 
+//*==================== monitor ==============================*/
+void *ft_monitor(void *arg);
 
 #endif

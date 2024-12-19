@@ -1,22 +1,28 @@
-
 CC = gcc 
 CFLAGS = -Wall -Wextra -Werror -g #fsanitize=thread -pthread
-SRC = main.c \
+SRCS = main.c \
 	  utils.c \
+	  parsing.c \
 	  initialization.c \
-	  threads.c\
-	  time.c\
-	  print.c\
+	  ft_time.c \
+	  setters.c \
+	  ft_free.c \
+	  ft_routine.c \
+	  print.c \
+	  ft_threads.c \
+	  forks.c \
 
-OBJ = $(SRC:.c=.o)
+OBJ = $(SRCS:.c=.o)
 
-%.o: %.c
+%.o: %.c philo.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 NAME = philo
 
 all: $(NAME)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 clean:
 	rm -f $(OBJ)

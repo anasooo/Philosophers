@@ -11,6 +11,8 @@ SRCS = main.c \
 	  print.c \
 	  ft_threads.c \
 	  forks.c \
+	  ft_monitor.c \
+	  ft_check.c \
 
 OBJ = $(SRCS:.c=.o)
 

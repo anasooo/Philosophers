@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:47:33 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/18 11:20:17 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/19 15:15:09 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_fork
 	pthread_mutex_t	mutex;
 }t_fork;
 
+typedef struct s_process t_process;
 typedef struct s_philo
 {
 	int				id;
@@ -54,16 +55,15 @@ typedef struct s_philo
 	t_fork			*l_fork;
 	t_fork			*r_fork;
 	pthread_t		thread;
-	int	last_eat;
+	unsigned int	last_eat;
 	int finished;
 	pthread_mutex_t	mutex;
 }t_philo;
 
-
 typedef struct s_process
 {
 	unsigned int	number_of_philos;
-	t_time			*time;
+	t_time			time;
 	int				number_of_meals;
 	bool			ready;
 	bool			philo_died;
@@ -78,7 +78,7 @@ typedef struct s_process
 /*==================== utils ===================================*/
 int		ft_strlen(const char *s);
 void	ft_putendl_fd(char *s, int fd);
-unsigned long	ft_atoul(const char *s, bool *error);
+unsigned int	ft_atoui(const char *s, bool *error);
 /*==================== free ====================================*/
 void	ft_free_forks(t_fork **forks, long n_philos);
 void	ft_free_philos(t_philo **philos, long n_philos);
@@ -87,22 +87,30 @@ t_process	*ft_parse_input(int ac, char **av);
 /*==================== initialization ==========================*/
 t_fork		**init_forks(int n_philos);
 t_philo		**init_philos(t_process *process, t_fork **forks);
-void		ft_initialization(t_process *process, t_fork **forks, t_philo **philos);
+int		ft_initialization(t_process *process, t_fork **forks, t_philo **philos);
 /*==================== threads =================================*/
-void	ft_threads(t_process *process);
+int	ft_threads(t_process *process);
 /*==================== routine =================================*/
 void	*ft_routine(void *philo);
 /*==================== time ====================================*/
-unsigned long	ft_get_time(void);
+unsigned int	ft_get_time(void);
+int	ft_usleep(unsigned long time);
 /*==================== setters =================================*/
 void	set_ready(t_process *process);
-int		set_philo_last_eat(t_philo *philo);
+void		set_philo_last_eat(t_philo *philo);
+void ft_set_philo_finished(t_philo *philo);
+void ft_update_process_state(t_process *process);
+/*==================== check ===================================*/
+int ft_check_philo_died(t_process *process);
 /*==================== print ===================================*/
 void	ft_print_fork(t_philo *philo);
 void	ft_print_eating(t_philo *philo);
 void	ft_print_sleeping(t_philo *philo);
 void	ft_print_thinking(t_philo *philo);
-//void	ft_print_dead(t_philo *philo);
+
+//*==================== forks ==============================*/
+int ft_take_forks(t_process *process, t_philo *philo);
+int ft_put_forks(t_process *process, t_philo *philo);
 
 
 #endif

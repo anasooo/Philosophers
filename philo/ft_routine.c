@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:59:56 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/20 13:47:48 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/20 22:36:55 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int ft_eat(t_process *process, t_philo *philo)
         ft_usleep(process->time.to_die);
     else
         ft_usleep(process->time.to_eat);
+    
+    
     return (1);
 }
 int ft_sleep(t_process *process, t_philo *philo)
@@ -52,7 +54,7 @@ int	simulation(t_process *process, t_philo *philo)
         usleep(10);
     m = 0;
     while (m < process->number_of_meals || process->number_of_meals == -1)
-    {
+    {    
         if (!ft_take_forks(process, philo))
             return (0);
         if (!ft_eat(process, philo))

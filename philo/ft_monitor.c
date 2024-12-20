@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:42:18 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/19 20:19:59 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/20 13:53:57 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@ int	ft_check_last_eat(t_process *p, unsigned int i)
 	died = false;
     pthread_mutex_lock(&p->philos[i]->mutex);
 	time = ft_get_time();
-	if (p->time.to_die <= time - p->philos[i]->last_eat)
+	if (p->time.to_die < time - p->philos[i]->last_eat)
 	{
         ft_set_philo_died(p);
 		died = true;
+		pthread_mutex_lock(&p->mutex1);
 		ft_print_death(p->philos[i]);
+		pthread_mutex_unlock(&p->mutex1);
 	}
     pthread_mutex_unlock(&p->philos[i]->mutex);
 	return ((int)died);

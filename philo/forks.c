@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 02:32:13 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/19 20:30:02 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/20 13:53:43 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	take_l_fork(t_philo *philo, t_process *process)
     {
         pthread_mutex_unlock(&philo->l_fork->mutex);
         if (philo->id % 2 == 0)
-            pthread_mutex_unlock(&philo->l_fork->mutex);
+            pthread_mutex_unlock(&philo->r_fork->mutex);
         return (0);
     }
     ft_print_fork(philo);
@@ -55,6 +55,7 @@ int  ft_take_forks(t_process *process, t_philo *philo)
 
 int ft_put_forks(t_process *process, t_philo *philo)
 {
+
     pthread_mutex_unlock(&philo->l_fork->mutex);
     pthread_mutex_unlock(&philo->r_fork->mutex);
     if (ft_check_philo_died(process) != 0)

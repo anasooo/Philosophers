@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 02:16:26 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/19 13:16:56 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/19 19:38:35 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,9 @@ void   ft_print_sleeping(t_philo *philo)
 void    ft_print_thinking(t_philo *philo)
 {
     printf("%u %d %s", ft_get_time(), philo->id, THINK);
+}
+
+void    ft_print_death(t_philo *philo)
+{
+    printf("%u %d %s", ft_get_time(), philo->id, DEAD);
 }

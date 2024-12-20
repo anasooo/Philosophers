@@ -6,20 +6,12 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 02:32:13 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/19 13:13:39 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/20 17:18:52 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int ft_check_philo_died(t_process *process)
-{
-    int died;
-    pthread_mutex_lock(&process->mutex);
-    died = process->philo_died;
-    pthread_mutex_unlock(&process->mutex);
-    return (died);
-}
 
 int	take_r_fork(t_philo *philo, t_process *process)
 {
@@ -46,7 +38,7 @@ int	take_l_fork(t_philo *philo, t_process *process)
     {
         pthread_mutex_unlock(&philo->l_fork->mutex);
         if (philo->id % 2 == 0)
-            pthread_mutex_unlock(&philo->l_fork->mutex);
+            pthread_mutex_unlock(&philo->r_fork->mutex);
         return (0);
     }
     ft_print_fork(philo);
@@ -55,7 +47,9 @@ int	take_l_fork(t_philo *philo, t_process *process)
 
 int  ft_take_forks(t_process *process, t_philo *philo)
 {
-    if (philo->id % 2 == 0)
+    if (process->number_of_philos == 1)
+        return(take_r_fork(philo, process), process->philo_died = true);
+    else if (philo->id % 2 == 0)
         return (take_r_fork(philo, process) && take_l_fork(philo, process));
     else
         return (take_l_fork(philo, process) && take_r_fork(philo, process));
@@ -63,6 +57,7 @@ int  ft_take_forks(t_process *process, t_philo *philo)
 
 int ft_put_forks(t_process *process, t_philo *philo)
 {
+
     pthread_mutex_unlock(&philo->l_fork->mutex);
     pthread_mutex_unlock(&philo->r_fork->mutex);
     if (ft_check_philo_died(process) != 0)

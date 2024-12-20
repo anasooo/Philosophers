@@ -1,53 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setters.c                                          :+:      :+:    :+:   */
+/*   ft_check.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 12:55:08 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/19 17:27:46 by asodor           ###   ########.fr       */
+/*   Created: 2024/12/19 17:03:57 by asodor            #+#    #+#             */
+/*   Updated: 2024/12/19 19:38:55 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	all_is_ready(t_process *process)
-{
-    int is_ready;
-    
-    is_ready = 0;
-    while (!is_ready)
-    {
-        pthread_mutex_lock(&process->mutex);
-        is_ready = process->ready;
-        pthread_mutex_unlock(&process->mutex);
-    }
-}
-
-void	set_ready(t_process *process)
+void ft_set_philo_died(t_process *process)
 {
     pthread_mutex_lock(&process->mutex);
-    process->ready = true;
+    process->philo_died = 1;
     pthread_mutex_unlock(&process->mutex);
 }
 
-void set_philo_last_eat(t_philo *philo)
+int ft_check_philo_died(t_process *process)
 {
-    pthread_mutex_lock(&philo->mutex);
-    philo->last_eat = ft_get_time();
-    pthread_mutex_unlock(&philo->mutex);
+    int died;
+    pthread_mutex_lock(&process->mutex);
+    died = process->philo_died;
+    pthread_mutex_unlock(&process->mutex);
+    return (died);
 }
 
-void ft_set_philo_finished(t_philo *philo)
+int ft_check_philo_finished(t_philo *philo)
 {
+    int finished;
     pthread_mutex_lock(&philo->mutex);
-    philo->finished = 1;
+    finished = philo->finished;
     pthread_mutex_unlock(&philo->mutex);
+    return (finished);
 }
-void ft_set_count(t_process *process)
+int ft_check_process_finished(t_process *process)
 {
+    int finished;
     pthread_mutex_lock(&process->mutex);
-    process->finished++;
+    finished = process->finished;
     pthread_mutex_unlock(&process->mutex);
+    return (finished);
 }

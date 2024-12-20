@@ -1,5 +1,5 @@
 CC = gcc 
-CFLAGS = -Wall -Wextra -Werror -g #fsanitize=thread -pthread
+CFLAGS = -Wall -Wextra -Werror #-lpthread #-g3 -fsanitize=address
 SRCS = main.c \
 	  utils.c \
 	  parsing.c \
@@ -11,6 +11,8 @@ SRCS = main.c \
 	  print.c \
 	  ft_threads.c \
 	  forks.c \
+	  ft_monitor.c \
+	  ft_check.c \
 
 OBJ = $(SRCS:.c=.o)
 

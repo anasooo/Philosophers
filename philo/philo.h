@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:47:33 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/19 19:42:04 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/20 12:49:27 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_process
 	t_fork			**forks;
 	pthread_t		monitor;
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	mutex1;
 }t_process;
 
 

@@ -6,71 +6,11 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:42:18 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/20 13:53:57 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/20 16:58:23 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
-
-// int ft_check_last_eat(t_process *process, unsigned int i)
-// {
-//     bool died;
-    
-//     pthread_mutex_lock(&process->mutex);
-//     // Check if philosopher has exceeded time to die
-//     died = (process->time.to_die <= ft_get_time() - process->philos[i]->last_eat);
-//     if (died) {
-//         ft_set_philo_died(process);
-//         // mutex 
-//         ft_print_death(process->philos[i]);
-//         // mutex 
-//         pthread_mutex_unlock(&process->mutex);
-//         return (1);
-//     }
-//     pthread_mutex_unlock(&process->mutex);
-        
-//     return (0);
-// }
-
-// int	ft_is_died(t_process *process)
-// {
-// 	int	i;
-// 	int	died;
-// 	int		finished;
-
-// 	i = 0;
-// 	died = 0;
-// 	while (i < process->number_of_philos && !died)
-// 	{
-// 		finished = ft_check_philo_finished(process->philos[i]);
-// 		if (!finished)
-//             died = ft_check_last_eat(process, i);
-// 		i++;
-// 	}
-// 	return (died);
-// }
-
-// void	*ft_monitor(void *arg)
-// {
-//     t_process	*process;
-// 	int			check;
-
-// 	process = (t_process *)arg;
-//     if (!process)
-//         return (NULL);
-//     all_is_ready(process);
-//     ft_usleep(10);
-// 	while (1)
-// 	{
-// 		if (ft_is_died(process) != 0)
-// 			return (NULL);
-// 		check = ft_check_process_finished(process);
-// 		if (check == process->number_of_philos)
-// 			return (NULL);
-// 	}
-// 	return (NULL);
-// }
-
+# include "philo.h"        
 
 int	ft_check_last_eat(t_process *p, unsigned int i)
 {
@@ -80,14 +20,25 @@ int	ft_check_last_eat(t_process *p, unsigned int i)
 	died = false;
     pthread_mutex_lock(&p->philos[i]->mutex);
 	time = ft_get_time();
-	if (p->time.to_die < time - p->philos[i]->last_eat)
-	{
-        ft_set_philo_died(p);
-		died = true;
-		pthread_mutex_lock(&p->mutex1);
-		ft_print_death(p->philos[i]);
-		pthread_mutex_unlock(&p->mutex1);
+	if (p->number_of_philos % 2 == 0)
+	{	if (p->time.to_die + 1 < time - p->philos[i]->last_eat )
+		{	
+     		ft_set_philo_died(p);
+			died = true;
+			pthread_mutex_lock(&p->mutex1);
+			ft_print_death(p->philos[i]);
+			pthread_mutex_unlock(&p->mutex1);
+		}
 	}
+	else
+		if (p->time.to_die < time - p->philos[i]->last_eat)
+		{
+			ft_set_philo_died(p);
+			died = true;
+			pthread_mutex_lock(&p->mutex1);
+			ft_print_death(p->philos[i]);
+			pthread_mutex_unlock(&p->mutex1);
+		}
     pthread_mutex_unlock(&p->philos[i]->mutex);
 	return ((int)died);
 }

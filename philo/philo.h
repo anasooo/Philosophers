@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:47:33 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/20 12:49:27 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/20 17:09:16 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	ft_print_death(t_philo *philo);
 //*==================== forks ==============================*/
 int ft_take_forks(t_process *process, t_philo *philo);
 int ft_put_forks(t_process *process, t_philo *philo);
+int	take_r_fork(t_philo *philo, t_process *process);
 
 //*==================== monitor ==============================*/
 void *ft_monitor(void *arg);

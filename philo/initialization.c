@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 06:11:49 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/20 12:49:00 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/21 22:22:24 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void ft_set_philo(t_process *process, t_philo *philo, t_fork **forks, lon
 {
     philo->id = i + 1;
     philo->process = process;
+    philo->finished = 0;
+    philo->last_eat = 0;
     philo->l_fork = forks[i];
     philo->r_fork = forks[(i + 1) % process->number_of_philos];
 }
@@ -77,9 +79,11 @@ int init_process(t_process *process, t_fork **forks, t_philo **philos)
     return (1);
 }
 
-int    ft_initialization(t_process *process, t_fork **forks, t_philo **philos)
+int    ft_initialization(t_process *process)
 {
     bool p;
+    t_fork  **forks;
+    t_philo **philos;
     
     forks = init_forks(process->number_of_philos);
     if (!forks)
@@ -91,6 +95,7 @@ int    ft_initialization(t_process *process, t_fork **forks, t_philo **philos)
     if (!philos)
     {
         ft_putendl_fd("Philos initialization failed!\n", STDERR_FILENO);
+        ft_free_forks(forks, process->number_of_philos);
         return (free(process), 0);
     }
     p = init_process(process, forks, philos);

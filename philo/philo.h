@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:47:33 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/20 17:09:16 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/21 16:47:36 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_process	*ft_parse_input(int ac, char **av);
 /*==================== initialization ==========================*/
 t_fork		**init_forks(int n_philos);
 t_philo		**init_philos(t_process *process, t_fork **forks);
-int		ft_initialization(t_process *process, t_fork **forks, t_philo **philos);
+int		ft_initialization(t_process *process);
 /*==================== threads =================================*/
 int	ft_threads(t_process *process);
 /*==================== routine =================================*/
@@ -106,6 +106,7 @@ void ft_set_philo_died(t_process *process);
 int ft_check_philo_died(t_process *process);
 int ft_check_philo_finished(t_philo *philo);
 int ft_check_process_finished(t_process *process);
+int ft_check_number_of_philos(t_process *p);
 /*==================== print ===================================*/
 void	ft_print_fork(t_philo *philo);
 void	ft_print_eating(t_philo *philo);

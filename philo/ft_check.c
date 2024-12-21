@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:03:57 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/19 19:38:55 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/21 15:48:35 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,12 @@ int ft_check_process_finished(t_process *process)
     finished = process->finished;
     pthread_mutex_unlock(&process->mutex);
     return (finished);
+}
+int ft_check_number_of_philos(t_process *p)
+{
+    int nb;
+    pthread_mutex_lock(&p->mutex);
+    nb = p->number_of_philos;
+    pthread_mutex_unlock(&p->mutex);
+    return (nb);
 }

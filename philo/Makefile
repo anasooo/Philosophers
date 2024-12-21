@@ -1,5 +1,5 @@
 CC = gcc 
-CFLAGS = -Wall -Wextra -Werror #-lpthread #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address -g3 #-lpthread
 SRCS = main.c \
 	  utils.c \
 	  parsing.c \

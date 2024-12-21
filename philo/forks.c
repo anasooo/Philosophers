@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 02:32:13 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/20 17:18:52 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/21 15:54:29 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ int	take_l_fork(t_philo *philo, t_process *process)
         return (0);
     }
     ft_print_fork(philo);
+    if (ft_check_number_of_philos(process) == 1)
+        ft_set_philo_died(process);
     return (1);
 }
 
 int  ft_take_forks(t_process *process, t_philo *philo)
 {
-    if (process->number_of_philos == 1)
-        return(take_r_fork(philo, process), process->philo_died = true);
-    else if (philo->id % 2 == 0)
+    if (philo->id % 2 == 0)
         return (take_r_fork(philo, process) && take_l_fork(philo, process));
     else
         return (take_l_fork(philo, process) && take_r_fork(philo, process));

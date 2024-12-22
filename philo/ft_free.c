@@ -12,35 +12,34 @@
 
 #include "philo.h"
 
-void    ft_free_forks(t_fork **forks, long n_philos)
+void	ft_free_forks(t_fork **forks, long n_philos)
 {
-    long	i;
+	long	i;
 
-    if (!forks)
-        return ;
-    i = 0;
-    while (i < n_philos)
-    {
-        if (forks[i])
-            free(forks[i]);
-        i++;
-    }
-    free(forks);
+	if (!forks)
+		return ;
+	i = 0;
+	while (i < n_philos)
+	{
+		if (forks[i])
+			free(forks[i]);
+		i++;
+	}
+	free(forks);
 }
 
 void	ft_free_philos(t_philo **philos, long n_philos)
 {
-    long	i;
+	long	i;
 
-    if (!philos)
-        return ;
-    i = 0;
-    while (i < n_philos)
-    {
-        if (philos[i])
-            free(philos[i]);
-        i++;
-    }
-    free(philos);
+	if (!philos)
+		return ;
+	i = 0;
+	while (i < n_philos)
+	{
+		if (philos[i])
+			free(philos[i]);
+		i++;
+	}
+	free(philos);
 }
-

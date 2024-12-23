@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:59:56 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/22 17:59:09 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/23 16:11:33 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,12 @@ int	simulation(t_process *process, t_philo *philo)
 	long	m;
 
 	if (philo->id % 2 == 0)
-		usleep(10);
+	{
+		if (process->number_of_philos % 2 == 0)
+			ft_usleep(59);
+		else
+			ft_usleep(10);
+	}
 	m = 0;
 	while (m < process->number_of_meals || process->number_of_meals == -1)
 	{

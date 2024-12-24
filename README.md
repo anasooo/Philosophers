@@ -2,7 +2,7 @@
 
 This project implements the classic Dining Philosophers problem using threads and mutexes in C. The program simulates philosophers sitting at a round table, alternating between eating, thinking, and sleeping while sharing forks with their neighbors.
 <p align="center">
-  <img src="https://raw.githubusercontent.com/anasooo/Philosophers/refs/heads/main/philo/img/p.webp?token=GHSAT0AAAAAAC2GLQX2VJVFK37BU7AKWSJSZ3KA7QQ" alt="Philosophers Dining Problem" width="600">
+  <img src="https://github.com/anasooo/Philosophers/blob/main/philo/img/p.png" alt="Philosophers Dining Problem" width="600">
 </p>
 
 ## Problem Description
